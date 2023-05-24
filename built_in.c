@@ -6,28 +6,41 @@
  * Return: 0 on successful execution, or 1
  * if an invalid argument is provided.
 */
-int _exit_(data_manager *data)
+void _exit_(data_manager *data)
 {
 	int st;
 	int i = 0;
 
-	if (data->args[1])
+	if (_strcmp(data->args[0], "exit") == 0)
 	{
-		while (data->args[1][i])
+		if (data->args[1])
 		{
-			if (_alp(data->args[1][i++]) == 1)
-				return (1);
+			while (data->args[1][i])
+			{
+				if (_alp(data->args[1][i++]) == 1)
+					return;
+			}
+			st = _atoi(data->args[1]);
+			free(data->input);
+			free_all(data);
+			exit(st);
 		}
-		st = _atoi(data->args[1]);
-		free_all(data);
-		exit(st);
-	}
-	else
-	{
-		free_all(data);
-		exit(0);
+		else
+		{
+			free(data->input);
+			free_all(data);
+			exit(0);
+		}
 	}
 
-	return (0);
 }
 
+/**
+ * h_signal - handle ^C signal
+ * @sig: signal
+ */
+void h_signal(int sig)
+{
+	if (sig == SIGINT)
+		_puts("\n$ ", 1);
+}

@@ -36,17 +36,6 @@ typedef struct data_m
 	size_t counter;
 } data_manager;
 
-/**
- * struct built_in - store built in function
- * @b_arg: first token of args
- * @b_fun: function to execute builtin
-*/
-typedef struct built_in
-{
-	char *b_arg;
-	int (*b_fun)(data_manager *);
-} builtin;
-
 /** main function */
 int set_data(data_manager *data);
 int free_all(data_manager *data);
@@ -63,6 +52,7 @@ int parse_line(data_manager *data);
 int cmd_access(data_manager *data);
 void execute_cmd(data_manager *data);
 int status(data_manager *data);
+void h_signal(int sig);
 
 /** char function */
 char *_strcpy(char *dest, const char *src);
@@ -85,7 +75,7 @@ void *_realloc(void *ptr, size_t old_size, size_t size);
 
 /** built in function */
 int f_builtin(data_manager *data);
-int _exit_(data_manager *data);
+void _exit_(data_manager *data);
 
 /** Advance project */
 

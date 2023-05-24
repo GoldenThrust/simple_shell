@@ -10,6 +10,7 @@ int cmd_loop(data_manager *data)
 	size_t len, ch;
 	int c;
 
+	signal(SIGINT, h_signal);
 	while (1)
 	{
 		data->counter++;
@@ -26,7 +27,7 @@ int cmd_loop(data_manager *data)
 		else if (c == 1)
 			continue;
 		parse_line(data);
-		f_builtin(data);
+		_exit_(data);
 		if (cmd_access(data) == 127)
 			continue;
 

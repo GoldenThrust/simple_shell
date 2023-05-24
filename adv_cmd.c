@@ -106,30 +106,3 @@ char *_strtok(char *str, const char *delim)
 	return (cur_token);
 }
 
-
-/**
- * f_builtin - Execute a built-in command
- * @data: Pointer to the data_manager struct containing command data
- * Return: The result of the built-in command execution,
- *  or -1 if no match is found.
- */
-int f_builtin(data_manager *data)
-{
-	int i = 0, built_ret = -1;
-	builtin built[] = {
-		{"exit", _exit_},
-		{NULL, NULL}};
-
-	while (built[i].b_arg)
-	{
-		if (_strcmp(data->args[0], built[i].b_arg) == 0)
-		{
-			built_ret = built[i].b_fun(data);
-			break;
-		}
-		i++;
-	}
-
-	return (built_ret);
-}
-
